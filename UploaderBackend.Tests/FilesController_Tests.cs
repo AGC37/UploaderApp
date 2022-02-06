@@ -24,7 +24,7 @@ namespace UploaderBackend.Tests
         [Fact]
         public async Task ShouldUploadFile()
         {
-            var response = await _client.GetAsync("api/files/getfiles");
+            var response = await _client.GetAsync("api/files");
 
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             _client.Dispose();
@@ -38,10 +38,10 @@ namespace UploaderBackend.Tests
             {
                 content.Add(new StreamContent(new MemoryStream(new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 })), "bilddatei", "test.pdf");
 
-                await _client.PostAsync("api/files/upload", content);
+                await _client.PostAsync("api/files", content);
             }
 
-            var response = await _client.GetAsync("api/files/getfiles");
+            var response = await _client.GetAsync("api/files");
 
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             _client.Dispose();
