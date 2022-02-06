@@ -2,7 +2,6 @@ import {UploadComponent} from "./upload.component";
 import {FileService} from "../../services/file.service";
 import {ComponentFixture, TestBed, waitForAsync} from "@angular/core/testing";
 import {By} from "@angular/platform-browser";
-import {HttpClientModule} from "@angular/common/http";
 import {FilesizeconvertPipe} from "../../filesizeconvert.pipe";
 
 describe('UploadComponent', () => {
@@ -19,9 +18,6 @@ describe('UploadComponent', () => {
         {provide: FileService, useValue: fileService},
         {provide: FilesizeconvertPipe, useValue: filesize}
       ],
-      imports: [
-        HttpClientModule
-      ]
     }).compileComponents();
   }))
 
@@ -31,6 +27,7 @@ describe('UploadComponent', () => {
     fixture = TestBed.createComponent(UploadComponent)
     component = fixture.componentInstance
     component.sizeConfig = 5242880
+    component.typeConfig = ['.txt', '.doc', '.pdf']
 
     fixture.detectChanges()
 
