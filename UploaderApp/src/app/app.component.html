@@ -1,0 +1,12 @@
+﻿<ng-container *ngIf="!rerender">
+  <app-upload (onUploadFinished)="reloadPage($event)"
+              [sizeConfig]="size"
+              [typeConfig]="typeFile"></app-upload>
+  <div class="list-area">
+    <ng-container *ngFor="let type of typeFile">
+      <div class="list-part">
+        <app-list [fileTypeAll]="type"></app-list>
+      </div>
+    </ng-container>
+  </div>
+</ng-container>

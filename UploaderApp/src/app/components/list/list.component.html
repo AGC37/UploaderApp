@@ -1,0 +1,43 @@
+<ng-container *ngIf="data">
+  <div class="mat-elevation-z8 box-form" [hidden]="!(data.data.length != 0)">
+    <h2>{{ fileTypeAll }} List</h2>
+    <table mat-table [dataSource]="data" [hidden]="!data" matSort (matSortChange)="loadData()"
+           matSortActive="{{defaultSortColumn}}" [matSortDirection]="defaultSortOrder">
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+        <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="creationTime">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Data </th>
+        <td mat-cell *matCellDef="let row"> {{row.creationTime | date: 'd/M/yy, h:mm a'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="size">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Size </th>
+        <td mat-cell *matCellDef="let row"> {{row.size | filesizeconvert}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>  </th>
+        <td mat-cell *matCellDef="let row">
+          <button mat-menu-item>
+                <span (click)="delete(row.id)">
+                <mat-icon>delete</mat-icon></span>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+  </div>
+
+</ng-container>
+<mat-paginator #paginator
+               (page)="getFiles($event)"
+               [pageSize]="5"
+               [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+

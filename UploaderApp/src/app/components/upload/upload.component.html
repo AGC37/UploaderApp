@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="flex-j-i">
+    <div class="file-input">
+      <div class="form-group">
+        <label class="label">
+          <span class="title">Attach file/files:</span><br>
+          <span class="title">{{typeConfig.join()}}</span>
+          <input type="file" #file placeholder="Choose file" (change)="validate(file.files)" class="file-input" multiple accept="{{typeConfig.join()}}">
+        </label>
+      </div>
+    </div>
+    <ng-container *ngIf="!errorMessage">
+      <button type="button" class="btn btn-success" (click)="uploadFiles(file.files)">
+        Upload File
+      </button>
+    </ng-container>
+  </div>
+  <div *ngIf="selectedFiles && selectedFiles.length">
+    <div *ngFor="let item of selectedFiles" class="flex-j-i">
+      <div class="mr-15 color-bl">{{ item.name }}</div>
+      <div>{{ item.size | filesizeconvert }}</div>
+    </div>
+    <div *ngIf="progress" class="mt-2">
+      <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+    </div>
+
+    <div *ngIf="errorMessage" class="color-red">
+      {{errorMessage}}
+    </div>
+
+    <div>
+      <span class="upload" *ngIf="message">{{message}}</span>
+    </div>
+  </div>
+</div>
